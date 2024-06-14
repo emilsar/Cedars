@@ -47,8 +47,8 @@ This project introduces students to the cutting-edge field of Graph Neural Netwo
 
 #### Data Preparation
 1. **Physician Sharing Network**:
-   - Download the dataset from [Physician Sharing Network Dataset](https://example.com/physician-network-data).
-   - Load and preprocess the data using pandas.
+   - Download the dataset from [Physician Sharing Network Dataset](https://rdrr.io/github/schochastics/networkdata/man/physicians.html).
+   - Load and preprocess the data using R/pandas. Already provided in 
    - Construct the physician network graph using NetworkX.
 
 2. **Lymphocyte Detection in Tissue Slides**:
