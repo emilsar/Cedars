@@ -1,0 +1,35 @@
+data {
+  int<lower=0> N;             // Number of nodes in the network
+  int<lower=1> K;             // Number of nodes in the network
+  matrix[N, N] inv_geo_dist;  // Matrix of inverse geodesic distances
+  vector[N] y;                // Vector of responses
+  matrix[N, K] X;             // Covariate matrix
+}
+
+parameters {
+  vector[K] beta;        // Coefficients for the covariates
+  real<lower=-1, upper=1> rho1; // Autocorrelation parameter for y
+  real<lower=-1, upper=1> rho2; // Autocorrelation parameter for the error
+  real<lower=0> sigma;   // Standard deviation of errors
+}
+
+model {
+  // Priors
+  beta ~ normal(0, 5);
+  rho1 ~ uniform(-1, 1);
+  rho2 ~ uniform(-1, 1);
+  sigma ~ cauchy(0, 2);
+
+  vector[N] Wy = inv_geo_dist .* y; // Weighted sum of y
+  vector[N] mu = X * beta + rho1 * Wy; // Mean model
+  // Likelihood
+  for (i in 1:N) {
+    // Autocorrelation in errors
+    y[i] ~ normal(mu[i], sigma);
+    // Here, we assume that the errors are also autocorrelated
+    // with the structure given by inv_geo_dist and parameter rho2.
+    // This would be represented in the model by another term similar to Wy.
+    // The actual implementation of the autocorrelation in errors would require
+    // additional modeling choices.
+  }
+}
