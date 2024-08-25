@@ -27,7 +27,7 @@ This project focuses on enhancing bladder cancer screening methods by developing
 - **Quantitative Analysis**: Calculation of the nuclear-to-cytoplasmic (N/C) ratio as a key marker for malignancy, and development of scoring systems to assess cancer risk.
 
 ### Datasets
-1. **Urothelial Cell Dataset (Model Training)**: Contains over 100 urothelial cells with ground truth segmentation masks for nucleus and cytoplasm. The goal is to train and compare various algorithms for segmenting these regions and calculating the N/C ratio.
+1. **Urothelial Cell Dataset (Model Training)**: Contains over 300 urothelial cells with ground truth segmentation masks for nucleus and cytoplasm. The goal is to train and compare various algorithms for segmenting these regions and calculating the N/C ratio.
 2. **Specimen Cell Dataset**: Contains 25 cells per patient, with patients categorized by diagnosis. The aim is to study the predictive power of the developed biomarker (N/C ratio) and its distribution across different patient diagnoses.
 
 ### Getting Started Guide
@@ -37,35 +37,35 @@ This project focuses on enhancing bladder cancer screening methods by developing
 #### Environment Setup
 1. **Install Python and necessary libraries**:
    ```bash
-   pip install opencv-python pandas numpy torch matplotlib seaborn
+   pip install opencv-python pandas numpy torchvision segmentation_models_pytorch matplotlib seaborn scikit-image scipy tqdm Pillow scikit-learn torch
    ```
 2. **Recommended IDE**: Jupyter Notebook or VS Code.
 
 #### Data Preparation
 1. **Urothelial Cell Dataset**:
-   - Download the dataset from [Urothelial Cell Dataset](TBD).
-   - Run 1_prepdata.py to generate a pickle containing dictionary of images and segmentation masks.
+   - Download the dataset by cloning this repository.
+   - In the Project2 folder, run python 1_prepdata.py to generate a pickle file containing dictionary of images and segmentation masks. This will serve as the standard input for subsequent analyses.
    - Load and preprocess the images using OpenCV. See 1_load_data.ipynb for an example of intensity based methods. 
    - Construct segmentation masks for training models, should already exist for uploaded images.
-   - See Project2/CedarsAI_team2_progress folder for example of the KMeans clustering approach as well as loading custom texture analysis approaches (GLCM, Gabor filters, first/second order features, random forest for feature selection, etc)
-   - Train models, see 2_image_segmentation.ipynb.
+   - See 2_Intensity_KMeans.ipynb folder for example of the KMeans clustering approach as well as loading custom texture analysis approaches (GLCM, Gabor filters, first/second order features, random forest for feature selection, etc)
+   - Train models, see 3_DL_image_segmentation.ipynb. This script references code in semseg_functions.py which can be readily expanded on.
 
 2. **Specimen Cell Dataset**:
-   - Download the dataset from [Specimen Cell Dataset](TBD).
+   - Download the dataset from [Specimen Cell Dataset](https://github.com/jlevy44/Cedars_AI_Campus_Tutorials/raw/main/Project2/specimens_toy_data.pkl).
    - Load and preprocess the images using developed algorithms.
-   - Analyze the N/C ratio across different patient diagnoses.
+   - Analyze the N/C ratio across different patient diagnoses. Calculate performance statistics for binary classification, suspicious and positive versus negative and atypical or retain their ordering neg<aty<sus<pos (e.g., spearman correlation, ordinal regression).
 
 #### Model Implementation
 1. **Image Segmentation**:
    - Implement traditional segmentation methods like intensity thresholding and clustering.
    - Develop and train neural networks such as UNET for advanced segmentation.
 2. **Quantitative Analysis**:
-   - Calculate the N/C ratio for each cell. 
+   - Calculate the N/C ratio for each cell by estimating the area of nucleus, cytoplasm. NC ratio = Nucleus Area / (Nucleus Area+Cytoplasm Area). 
    - Develop a scoring system to assess cancer risk based on cellular features.
 3. **Evaluation**:
    - Compare the performance of different segmentation algorithms. 
    - Calculate classification report for pixel-wise segmentation.
-   - Correlate true versus predicted NC Ratio. 
+   - Correlate true versus predicted NC Ratio. Calculate absolute error. 
    - Validate the predictive power of the N/C ratio with patient diagnoses.
 
 ### Suggested Readings and References
@@ -73,16 +73,12 @@ This project focuses on enhancing bladder cancer screening methods by developing
 - [Introduction to Image Segmentation](https://www.geeksforgeeks.org/image-segmentation-in-deep-learning/)
 - [Deep Learning in Medical Imaging](https://www.sciencedirect.com/science/article/pii/S1361841518303005)
 
-### Recommended Videos
-- [Introduction to Image Processing](TBD)
-- [Deep Learning with UNET](TBD)
-
 ### Data Download Links
-- [Urothelial Cell Dataset](TBD)
-- [Specimen Cell Dataset](TBD)
+- [Urothelial Cell Dataset](https://github.com/jlevy44/Cedars_AI_Campus_Tutorials/tree/main/Project2/imagedata)
+- [Specimen Cell Dataset](https://github.com/jlevy44/Cedars_AI_Campus_Tutorials/raw/main/Project2/specimens_toy_data.pkl)
 
 ### Project Files
-- [Download Project Files (ZIP)](TBD)
+- [Download Project Files (ZIP)](https://github.com/jlevy44/Cedars_AI_Campus_Tutorials/archive/refs/heads/main.zip)
 
 ## Author Information
 Joshua Levy - [GitHub](https://github.com/jlevy44) | [LinkedIn](https://www.linkedin.com/in/joshua-levy-87044913b) | [LevyLab](https://levylab.host.dartmouth.edu/)

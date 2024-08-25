@@ -1,2 +1,7 @@
 Project2/urothelial_cell_toy_data.pkl
-Project7_Description.md
+Project2/annotations/*
+Project2/YMCA*
+.DS_Store
+Project2/.DS_Store
+Project2/0_sam_annotations_example_YMCA.ipynb
+
