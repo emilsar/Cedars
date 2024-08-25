@@ -46,28 +46,39 @@ This project introduces students to the cutting-edge field of Graph Neural Netwo
    [Install Torch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html)
 2. **Recommended IDE**: Jupyter Notebook or VS Code.
 
-#### Data Preparation
+#### Data Preparation and Tasks
 1. **Physician Innovation Network**:
    - Download the dataset from [Physician Sharing Network Dataset](https://rdrr.io/github/schochastics/networkdata/man/physicians.html).
    - Load and preprocess the data using R/pandas. Already provided in 
    - Construct the physician network graph using NetworkX.
+   - Task: Predict the year physicians adopted the new technology. Compare GNNs with classical logistic regression and other non-graph based methods.
 
 2. **Lymphocyte Detection in Tissue Slides**:
    - Download the dataset from [Lymphocyte Detection Dataset](https://github.com/jlevy44/Cedars_AI_Campus_Tutorials/raw/main/Project7/lymphocyte_toy_data.pkl).
    - Load and preprocess the images using OpenCV.
    - Construct the spatial network of cells using NetworkX.
+   - Description: Nodes: Cells, Attributes: CNN features, Edges: K-nearest neighboring cells.
+   - Task: Predict whether a cell is immune or non-immune based on its spatial features. Compare GNNs with traditional image classification / MLP / etc. models.
 
 3. **Fake News Detection on Twitter**:
    - Download the dataset from [Fake News Detection Dataset](https://pytorch-geometric.readthedocs.io/en/2.5.3/generated/torch_geometric.datasets.UPFD.html).
    - Load and preprocess the data using pandas.
    - Construct the social network graph using NetworkX.
+   - Description: Nodes: Users, Edges: Retweets, Attributes: User profile and/or BERT-derived embeddings of tweets.
+   - Task: Determine whether news is fake based on tweet text content and information from retweeting pattern. Does retweeting pattern inform whether news is fake? Compare GNNs with traditional text classification models on original tweet.
+   
+4. GNNs neuroscience:
+   - Download the dataset from [GNNs in Neuroscience](https://colab.research.google.com/drive/16pZ3j3WZ5_E1oUa_70uz5Xb4ZVqHokMJ?usp=sharing)
+   - Run through above notebook, may need to alter the code for latest package versions.
+   - Description: fMRI signals within local brain regions of interest, which serve as the nodes. Edges are defined by the correlation between the fMRI signals within a fixed time period. Graph evolves over time as correlations within fixed intervals change.
+   - Goal: Predict the age of the individual based on the evolving brain connectivity patterns. Compare GNNs with traditional time-series analysis methods, image analysis methods, average correlations, etc.. Interpret models with Captum, [GNNExplainer](https://pytorch-geometric.readthedocs.io/en/latest/modules/explain.html#philoshopy), etc. What are important time-points/connections?
 
 #### Model Implementation
 1. **Graph Neural Networks**:
    - Implement basic GNN models using PyTorch Geometric.
    - Compare GCNs and GATs in terms of performance and interpretability.
 2. **Analysis and Visualization**:
-   - Apply network analysis techniques and visualize the results using Matplotlib and Seaborn.
+   - Apply network analysis and compare predictive techniques and visualize the results using Matplotlib and Seaborn.
 
 ### Suggested Readings and References
 - [Understanding Graph Neural Networks](https://medium.com/@ahmedmellit/understand-the-theoretical-foundations-of-graph-neural-networks-gnns-part-2-eb3a2a764e3e)
