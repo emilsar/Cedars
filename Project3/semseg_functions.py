@@ -173,8 +173,10 @@ def load_model(path_dir = None, model_key="unet", encoder_name="resnet18", devic
                 fpn=smp.FPN).get(model_key, smp.Unet)
     model=model(classes=3,in_channels=3, encoder_name=encoder_name, encoder_weights=None)
     if path_dir is not None:
-        model_list=sorted(glob.glob(path_dir + '/*_model.pkl'), key=os.path.getmtime)
-        model.load_state_dict(torch.load(model_list[-1], map_location="cpu"))
+        model_fnames=glob.glob(path_dir + '/*_model.pkl')
+        if len(model_fnames)>0:
+            model_list=sorted(model_fnames, key=os.path.getmtime)
+            model.load_state_dict(torch.load(model_list[-1], map_location="cpu"))
     return model
 
 def train_model(X_train,Y_train,X_val,Y_val,save=True,n_epochs=10, model_key="unet", encoder_name="resnet18", path_dir = "./seg_models", device="cpu"):
@@ -185,7 +187,7 @@ def train_model(X_train,Y_train,X_val,Y_val,save=True,n_epochs=10, model_key="un
     train_dataloader_ordered=DataLoader(train_data,batch_size=8,shuffle=False)
     val_dataloader=DataLoader(val_data,batch_size=8,shuffle=False)
     encoder_name="resnet18" if encoder_name not in smp.encoders.get_encoder_names() else encoder_name
-    model=load_model(path_dir, model_key, encoder_name, device)
+    model=load_model(None, model_key, encoder_name, device)
     optimizer=torch.optim.Adam(model.parameters())
     class_weight=compute_class_weight(class_weight='balanced', classes=np.unique(Y_train.numpy().flatten()), y=Y_train.numpy().flatten())
     class_weight=torch.FloatTensor(class_weight).to(device)
